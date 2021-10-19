@@ -5,28 +5,35 @@
 from random import randint
 
 rand_list = []
-for i in range(1, 100):
-    rand = randint(1, 100)
+for i in range(0 , 10):
+    rand = randint(0 , 10)
     rand_list.append(rand)
+    rand_list.sort()
 
+n = int(input('Please enter a number of your choice: '))
+min = 0
+max = len(rand_list)
+print(max)
 print(rand_list)
-user_in = input("Please input a number: ")
-search_flag = True
 
-while search_flag:
-    long = int(len(rand_list))
-    l1 = rand_list[1:long]
-    print(l1)
-    if user_in in l1:
-        print('Value Found!')
-        search_flag = False
-        print(f'Searched Value: {user_in}')
+def binarysearch(rand_list, min, max, n):
+    if max >= min:
+        median = (max + min)//2
+
+        if n == rand_list[median]:
+            return n
+        elif n < rand_list[median]:
+            return binarysearch(rand_list, 0, median - 1, n)
+        else:
+            return binarysearch(rand_list, median + 1, max, n)
     else:
-        print(f'Searched Value: {user_in}')
-        search_flag = False
+        return "NA"
+
+index = binarysearch(rand_list, 0, max-1, n)
 
 
-# if user_in in rand_list[]:
-#     print("Yes, it's present")
-# else:
-#     print("Number isn't available34")
+if index != "NA":
+    print(f'Number is available at {index} in the list')
+else:
+    print('Number is not in the list!')
+
